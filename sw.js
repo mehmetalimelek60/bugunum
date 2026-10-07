@@ -1,7 +1,7 @@
 /* BUGÜNÜM servis çalışanı — çevrimdışı açılış, hızlı içerik ve fotoğraflar */
-const SURUM='bugunum-v2.1';
+const SURUM='bugunum-v2.2';
 const SAYFA='sayfa-'+SURUM, FOTO='foto-v2', KUTUP='kutup-v2';
-self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(SAYFA).then(c=>c.addAll(['./','./icerik.js','./manifest.json','./icon-192.png','./icon-512.png']).catch(()=>{})))});
+self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(SAYFA).then(c=>c.addAll(['./','./icerik.js','./manifest.json','./icon-192.png','./icon-512.png','./icon-any-192.png','./icon-any-512.png']).catch(()=>{})))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>![SAYFA,FOTO,KUTUP].includes(k)).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 function zamanli(p,ms){return new Promise((ok,no)=>{const t=setTimeout(()=>no(new Error('zaman')),ms);p.then(r=>{clearTimeout(t);ok(r)},e=>{clearTimeout(t);no(e)})})}
 const etiket=r=>r&&(r.headers.get('etag')||r.headers.get('last-modified'));
