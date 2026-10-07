@@ -877,6 +877,17 @@ body.koyu .lsgb em{color:#fff}
 .lsil{display:flex;align-items:center;gap:12px;margin:-4px 2px 16px;font-size:13px;color:var(--soluk)}
 .lsil>div:first-child{white-space:nowrap}.lsil b{color:var(--yazi);font-weight:800}
 .lsil .ilr{flex:1}
+.lsrey{margin:6px 0 18px}
+.lsrey h3{font:600 19.5px/1.2 var(--fontS);margin:0 2px 12px}
+.lsrg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.lsrk{border:0;padding:12px 4px 10px;border-radius:20px;background:radial-gradient(120% 90% at 0% 0%,var(--k2),transparent 70%),var(--kart);box-shadow:var(--golge);display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--yazi);min-width:0;transition:transform .12s}
+.lsrk:active{transform:scale(.95)}
+.lsrk span{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;color:#fff;background:linear-gradient(145deg,var(--ka),var(--k));box-shadow:0 8px 14px -8px var(--k3)}
+.lsrk span svg.ik{width:22px;height:22px}
+.lsrk b{font-size:12.5px;font-weight:700;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pb .lsi{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;color:#fff;background:linear-gradient(145deg,var(--ka),var(--k));flex:none}
+.pb .lsi svg.ik{width:18px;height:18px}
+.lsrc .cip.on{background:linear-gradient(145deg,var(--ka),var(--k));color:#fff;box-shadow:none}
 
 /* Bütçe */
 .bt-kh{min-height:0;padding-top:16px;padding-bottom:20px}
@@ -2085,7 +2096,7 @@ const FOTO_SABIT={"sha": "205a28ff870d3ee0f6dacfa9f63745ea2c30e064", "dosyalar":
    Eski sürümle aynı kayıt anahtarı ve veri şekli: carsi.v1
    ================================================================ */
 'use strict';
-const SURUM='2.3.0';
+const SURUM='2.4.0';
 const KEY='carsi.v1';
 const $=(s,r)=>(r||document).querySelector(s);
 const $$=(s,r)=>[...(r||document).querySelectorAll(s)];
@@ -5016,6 +5027,12 @@ niyetKaydet({ad:'icsem',re:/kahve|ne içsem|ne içeyim|içecek|çay (demle|iç)|
 const LISTE_RENK='#0B7A8C';
 const REYON=[['manav','Manav','leaf'],['firin','Fırın','bread'],['sut','Süt ve kahvaltılık','cheese'],['et','Et, tavuk, balık','meat'],['kuru','Bakliyat ve kuru gıda','wheat'],['kiler','Kiler','jar'],['icecek','İçecek','bottle'],['atis','Atıştırmalık','cookie'],['temiz','Temizlik','spray'],['bakim','Kişisel bakım','bath'],['bebek','Bebek','baby'],['pet','Evcil hayvan','paw'],['diger','Diğer','bag']];
 const REYON_RENK={manav:'#2E9E5B',firin:'#C98A2B',sut:'#3B82C4',et:'#C2413A',kuru:'#9C6B3C',kiler:'#B7791F',icecek:'#0E9AA7',atis:'#D9653B',temiz:'#4F6BD8',bakim:'#B5468B',bebek:'#E07A9B',pet:'#7A5BC4',diger:'#64748B'};
+const REYON_URUN={manav:['Domates','Salatalık','Biber','Patates','Soğan','Sarımsak','Limon','Elma','Muz','Portakal','Marul','Maydanoz','Dereotu','Havuç','Kabak','Patlıcan','Ispanak','Mantar'],
+ firin:['Ekmek','Simit','Pide','Lavaş','Yufka','Poğaça'],sut:['Süt','Yoğurt','Beyaz peynir','Kaşar peyniri','Tereyağı','Yumurta','Zeytin','Ayran','Kaymak','Labne'],
+ et:['Kıyma','Tavuk göğsü','Tavuk but','Kuşbaşı et','Balık','Sucuk','Köfte','Hindi füme'],kuru:['Pirinç','Bulgur','Kırmızı mercimek','Nohut','Kuru fasulye','Makarna','Şehriye','Un','Yulaf'],
+ kiler:['Şeker','Tuz','Ayçiçek yağı','Zeytinyağı','Domates salçası','Biber salçası','Çay','Kahve','Bal','Reçel','Sirke','Kabartma tozu'],icecek:['Su','Maden suyu','Meyve suyu','Gazoz','Soda'],
+ atis:['Çikolata','Bisküvi','Kuruyemiş','Kraker','Cips'],temiz:['Bulaşık deterjanı','Çamaşır deterjanı','Yumuşatıcı','Çöp poşeti','Sünger','Kağıt havlu','Tuvalet kağıdı','Peçete','Yüzey temizleyici'],
+ bakim:['Şampuan','Diş macunu','Diş fırçası','Sabun','Deodorant','Duş jeli'],bebek:['Bebek bezi','Islak mendil','Mama'],pet:['Kedi maması','Köpek maması','Kedi kumu']};
 const REYON_ESLE={sebze:'manav',meyve:'manav',firin:'firin',sut:'sut',et:'et',kuru:'kuru',kiler:'kiler',icecek:'icecek',atis:'atis',temiz:'temiz',bakim:'bakim',bebek:'bebek',pet:'pet'};
 const BIRIMLER=['kg','gr','g','lt','litre','ml','adet','paket','demet','kutu','şişe','kavanoz','file','baş','koli','düzine','poşet','dilim'];
 /* ad → reyon */
@@ -5049,7 +5066,12 @@ function listeGorunum(){const L=listeL();const al=L.filter(x=>!x.done),bitti=L.f
   if(bitti.length)govde+=ui.kart({sinif:'lsb',baslik:'Alınanlar · '+bitti.length,lnk:{yazi:'Temizle',a:'lsTemizle'},ic:ui.satirlar(bitti.slice(0,30).map(urunSatir))})}
  const top=L.length,yuz=top?Math.round(bitti.length/top*100):0;
  const ilr=top?`<div class="lsil"><div><b>${bitti.length}/${top}</b> alındı</div><div class="ilr"><i style="width:${yuz}%"></i></div></div>`:'';
- return ust+ekle+ilr+govde}
+ const rey=`<section class="lsrey"><h3>Reyonlardan ekle</h3><div class="lsrg">${REYON.filter(r=>REYON_URUN[r[0]]).map(([k,y,i])=>`<button type="button" class="lsrk" data-a="lsReyon" data-k="${k}" style="${kv(REYON_RENK[k])}"><span>${ik(i)}</span><b>${esc(y.split(/[ ,]/)[0])}</b></button>`).join('')}</div></section>`;
+ return ust+ekle+(L.length?ilr+govde+rey:rey+govde)}
+function lsReyonIc(k){const R=REYON.find(r=>r[0]===k);const var_=new Set(listeL().filter(x=>!x.done).map(x=>norm(x.ad)));
+ return `<div class="pb"><h2 style="display:flex;align-items:center;gap:10px"><span class="lsi" style="${kv(REYON_RENK[k])}">${ik(R[2])}</span>${esc(R[1])}</h2><button class="ib2" data-kapat aria-label="Kapat">${ik('close')}</button></div><p class="muted" style="margin:0 0 12px">Dokun, listene eklensin.</p><div class="cipler sar lsrc" style="${kv(REYON_RENK[k])}">${REYON_URUN[k].map(n=>`<button type="button" class="cip${var_.has(norm(n))?' on':''}" data-kal data-a="lsReyonEkle" data-v="${esc(n)}">${ik(var_.has(norm(n))?'check':'plus')}${esc(n)}</button>`).join('')}</div>`}
+eylem('lsReyon',d=>perde(lsReyonIc(d.k)));
+eylem('lsReyonEkle',(d,el)=>{const b=el&&el.closest?el.closest('button'):null;if(b&&b.classList.contains('on')){toast(d.v+' zaten listede');return}listeyeEkle(d.v);save();render();if(b){b.classList.add('on');b.innerHTML=ik('check')+esc(d.v)}toast(d.v+' eklendi')});
 function urunSatir(x){const alt=[miktarYazi(x),x.r?'Tarif: '+x.r:'',x.kim&&typeof benAd==='function'&&x.kim!==benAd()?x.kim+' ekledi':''].filter(Boolean).join(' · ');
  return `<div class="sat ls${x.done?' bitti':''}">${ui.tik(x.done,'lsTik',{id:x.id},x.done?'Alınmadı yap':'Alındı olarak işaretle')}<button class="gv lsad" data-a="lsTik" data-id="${x.id}"><b>${esc(x.ad)}</b>${alt?`<small>${esc(alt)}</small>`:''}</button><span class="sg">${ui.ib('edit','lsDuz',{id:x.id},'Düzenle')}</span></div>`}
 function oneriCipleri(L){const var_=new Set(L.filter(x=>!x.done).map(x=>norm(x.ad)));const sik=Object.entries(S.mutfak.sik||{}).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);const temel=(VERI.TEMEL||[]).map(norm);
