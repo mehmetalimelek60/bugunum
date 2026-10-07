@@ -5995,7 +5995,7 @@ niyetKaydet({ad:'yapsamTemizlik',re:/temizlik|ev i[sş]|toz al|cam sil|[çc]ama[
 
 /* ---- src/99_basla.js ---- */
 /* ===== 99 başlangıç ===== */
-if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))addEventListener('load',()=>{const eski=!!navigator.serviceWorker.controller;let yen=0;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(eski&&!yen){yen=1;location.reload()}});navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(k=>k.update&&k.update()).catch(()=>{})});
 basla();havaGetir();
 
 </script>
