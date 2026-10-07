@@ -40,7 +40,9 @@
 body.koyu{--bg:#0E1320;--kart:#171D2C;--cizgi:#262E40;--yumusak:#1D2435;--yazi:#EEF1F7;--soluk:#A6AEBE;--silik:#7E8798;--golge:0 1px 2px rgba(0,0,0,.4),0 8px 22px -10px rgba(0,0,0,.6);color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-html,body{margin:0;background:var(--bg);color:var(--yazi);font:400 15px/1.45 var(--font);overflow-x:hidden}
+html,body{margin:0;background:var(--bg);color:var(--yazi);font:400 15px/1.45 var(--font)}
+body{overflow-x:hidden}
+@supports (overflow-x:clip){body{overflow-x:clip}}
 body{min-height:100vh;padding-bottom:var(--alt)}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
@@ -238,37 +240,50 @@ body.koyu .alt a.on{color:#fff}
 #toast{position:fixed;left:50%;bottom:calc(var(--alt) + 14px);z-index:90;transform:translate(-50%,20px);opacity:0;background:var(--gece);color:#fff;padding:12px 18px;border-radius:14px;font-weight:600;font-size:14px;box-shadow:var(--golge2);max-width:calc(100vw - 32px);text-align:center;transition:.25s;pointer-events:none}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 
-/* ---------- çekmece (hamburger menü) ---------- */
-.cperde{position:fixed;inset:0;z-index:80;background:rgba(10,14,24,.5);opacity:0;transition:opacity .22s}
+/* ---------- çekmece (hamburger menü) — koyu gece mavisi, bölüm renkli ---------- */
+.cperde{position:fixed;inset:0;z-index:80;background:rgba(6,10,20,.55);opacity:0;transition:opacity .22s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 .cperde.on{opacity:1}
-.cek{position:fixed;top:0;bottom:0;left:0;z-index:81;width:min(84vw,330px);background:var(--kart);display:flex;flex-direction:column;transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);box-shadow:var(--golge2)}
-.cperde.on+.cek,.cek.on{transform:none}
-.cek .cb{background:var(--gece);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 18px) 18px 18px;display:flex;align-items:center;gap:12px}
-.cek .cb .av{width:48px;height:48px;border-radius:50%;background:var(--sabah);color:var(--gece);font:800 19px/1 var(--fontB);display:grid;place-items:center;flex:none}
-.cek .cb b{display:block;font:700 17px/1.2 var(--fontB)}
-.cek .cb small{display:block;color:rgba(255,255,255,.7);font-size:12.5px;margin-top:2px}
-.cek .cic{flex:1;overflow:auto;padding:10px 10px 16px;overscroll-behavior:contain}
-.cek .ana{display:flex;align-items:center;gap:12px;padding:10px;border-radius:14px;font-weight:600;font-size:15px}
-.cek .ana .ic{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--k1);color:var(--k);flex:none}
-.cek .ana .ic svg.ik{width:19px;height:19px}
-.cek .ana.on{background:var(--k1);color:var(--k)}
-body.koyu .cek .ana.on{color:#fff}
-.cek .grup{margin-top:6px;border-radius:16px;overflow:hidden}
-.cek .gbas{width:100%;display:flex;align-items:center;gap:12px;padding:11px 10px;border:0;background:none;border-radius:14px;font-weight:700;font-size:15px;text-align:left;color:var(--yazi)}
-.cek .gbas .ic{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--k);color:#fff;flex:none}
-.cek .gbas .ic svg.ik{width:19px;height:19px}
-.cek .gbas .ok{margin-left:auto;color:var(--silik);transition:transform .2s}
-.cek .grup.ac .gbas .ok{transform:rotate(90deg)}
-.cek .grup.ac{background:var(--k2)}
-.cek .gic{display:none;padding:2px 8px 10px 22px}
+.cek{position:fixed;top:0;bottom:0;left:0;z-index:81;width:min(84vw,320px);background:linear-gradient(180deg,#14213D 0%,#0E1730 100%);color:#fff;display:flex;flex-direction:column;transform:translateX(-102%);transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:20px 0 50px -20px rgba(0,0,0,.6);border-radius:0 26px 26px 0;overflow:hidden}
+.cek.on{transform:none}
+.cek .cb{padding:calc(env(safe-area-inset-top,0px) + 14px) 14px 12px}
+.cek .cbm{display:flex;align-items:center;gap:9px;margin:0 2px 14px}
+.cek .cbm svg{width:30px;height:30px}
+.cek .cbm span{font:800 21px/1 var(--fontB);letter-spacing:.05em}.cek .cbm span b{color:var(--sabah)}
+.cek .ckap{margin-left:auto;width:38px;height:38px;border-radius:12px;border:0;background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;padding:0}
+.cek .ckap svg.ik{width:19px;height:19px}
+.cek .cbu{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08)}
+.cek .cbu .av{width:42px;height:42px;border-radius:50%;background:var(--sabah);color:#14213D;font:800 16px/1 var(--fontB);display:grid;place-items:center;flex:none}
+.cek .cbu .ad{flex:1;min-width:0}.cek .cbu b{display:block;font:700 15.5px/1.2 var(--fontB);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cek .cbu small{display:block;font-size:12.5px;color:rgba(255,255,255,.62)}
+.cek .cbu svg.ik{width:18px;height:18px;color:rgba(255,255,255,.5)}
+.cek .cic{flex:1;overflow:auto;padding:4px 12px 14px;overscroll-behavior:contain}
+.cek .cts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 14px}
+.cek .ct{display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);min-height:84px;justify-content:space-between;transition:background .15s}
+.cek .ct .ic{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:var(--k);color:#0E1730}
+.cek .ct .ic svg.ik{width:19px;height:19px;stroke-width:2.1}
+.cek .ct b{font:700 14px/1.15 var(--fontB)}
+.cek .ct.on{background:var(--k1);border-color:var(--k)}
+.cek .ckb{font-size:12px;font-weight:700;color:rgba(255,255,255,.5);margin:2px 6px 8px}
+.cek .grup{border-radius:16px;margin-bottom:4px;transition:background .2s}
+.cek .grup.ac{background:rgba(255,255,255,.05)}
+.cek .gbas{width:100%;display:flex;align-items:center;gap:11px;padding:9px 8px;border:0;background:none;border-radius:14px;color:#fff;text-align:left;font:600 15px/1.2 var(--font)}
+.cek .gbas .ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--k1);color:var(--k);flex:none;filter:brightness(1.35) saturate(1.1)}
+.cek .gbas .ic svg.ik{width:18px;height:18px}
+.cek .gbas .ad{flex:1}
+.cek .gbas .say{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.55);background:rgba(255,255,255,.08);border-radius:999px;padding:2px 8px}
+.cek .gbas .ok{width:18px;height:18px;color:rgba(255,255,255,.45);transition:transform .2s}
+.cek .grup.ac .gbas .ok{transform:rotate(180deg)}
+.cek .gic{display:none;padding:0 8px 10px 25px;position:relative}
+.cek .gic::before{content:'';position:absolute;left:25px;top:0;bottom:12px;width:2px;border-radius:2px;background:var(--k);opacity:.5}
 .cek .grup.ac .gic{display:block}
-.cek .gic a{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:12px;font-size:14.5px;font-weight:500;color:var(--yazi);border-left:3px solid transparent}
-.cek .gic a .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--kart);color:var(--k);flex:none;box-shadow:0 1px 2px rgba(0,0,0,.06)}
-.cek .gic a .ic svg.ik{width:17px;height:17px}
-.cek .gic a.on{background:var(--kart);font-weight:700;border-left-color:var(--k);box-shadow:var(--golge)}
-.cek .alt2{border-top:1px solid var(--cizgi);padding:10px;display:flex;flex-direction:column;gap:2px}
-.cek .alt2 a{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;color:var(--soluk);font-weight:600;font-size:14.5px}
-.cek .alt2 a svg.ik{width:20px;height:20px}
+.cek .gic a{display:flex;align-items:center;gap:10px;margin-left:12px;padding:8px 10px;border-radius:12px;font-size:14.5px;color:rgba(255,255,255,.86)}
+.cek .gic a .ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--k);color:#fff;flex:none}
+.cek .gic a .ic svg.ik{width:16px;height:16px}
+.cek .gic a .ad{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cek .gic a.on{background:rgba(255,255,255,.1);color:#fff;font-weight:700}
+.cek .gic a .nok{width:8px;height:8px;border-radius:50%;background:var(--sabah)}
+.cek .alt2{border-top:1px solid rgba(255,255,255,.08);padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:6px}
+.cek .alt2 a,.cek .alt2 button{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 8px;border-radius:12px;color:rgba(255,255,255,.75);font:600 13px/1.2 var(--font);border:0;background:rgba(255,255,255,.05)}
+.cek .alt2 svg.ik{width:17px;height:17px}
 
 /* ---------- not / bilgi kutusu ---------- */
 .not{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:var(--r2);color:var(--yazi);font-size:13.5px;line-height:1.45;margin:0 0 12px}
@@ -1851,7 +1866,7 @@ a.kart.yp-bk{display:flex;align-items:center;gap:12px;padding:12px 14px 12px 12p
 .yp-bk>.ok{color:var(--silik);flex:none}
 
 /* yenileme ve yükleme */
-html,body{overscroll-behavior-y:contain}
+@media (display-mode: standalone){body{overscroll-behavior-y:contain}}
 .ptr{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:9998;width:40px;height:40px;margin-left:-20px;border-radius:50%;background:#fff;box-shadow:0 6px 18px rgba(16,24,48,.22);display:grid;place-items:center;opacity:0;transform:translateY(calc(var(--y,0px) - 30px)) scale(.7);transition:opacity .15s,transform .15s;pointer-events:none}
 .ptr.on{opacity:1;transform:translateY(var(--y,0px)) scale(1);transition:none}
 .ptr i{width:20px;height:20px;border-radius:50%;border:2.5px solid #D9DEE8;border-top-color:var(--navc,#16264A);transform:rotate(var(--r,0deg))}
@@ -1878,6 +1893,7 @@ html,body{overscroll-behavior-y:contain}
 <script>window.__t0=Date.now()</script>
 <script src="icerik.js"></script>
 <script>
+const FOTO_SABIT={"sha": "a1400786a912bf9a4d2ea6de90f9d3a81c41c45a", "dosyalar": ["Acuka.webp", "Acıbadem Kurabiyesi.webp", "Acılı Ezme.webp", "Affogato.webp", "Ali Nazik.webp", "Analı Kızlı Çorbası.webp", "Arabaşı Çorbası.webp", "Arnavut Ciğeri.webp", "Arpa Şehriye Pilavı.webp", "Ayran Aşı Çorbası.webp", "Ayva Reçeli.webp", "Ayva Tatlısı.webp", "Açma.webp", "Aşure.webp", "Babagannuş.webp", "Balkabağı Çorbası.webp", "Ballı Süt.webp", "Balık Buğulama.webp", "Bamya Çorbası.webp", "Bazlama.webp", "Beyran Çorbası.webp", "Biber Salçası.webp", "Biber Turşusu.webp", "Brokoli Çorbası.webp", "Cacık.webp", "Damla Sakızlı Türk Kahvesi.webp", "Deniz Börülcesi Salatası.webp", "Domates Soslu Makarna.webp", "Domates Çorbası.webp", "Domatesli Pilav.webp", "Düğün Çorbası.webp", "Ekmek Kadayıfı.webp", "Ekşili Köfte Çorbası.webp", "Elbasan Tava.webp", "Elmalı Kurabiye.webp", "Etli Bamya.webp", "Etli Bezelye.webp", "Etli Biber Dolması.webp", "Etli Ekmek.webp", "Etli Güveç.webp", "Etli Kabak Dolması.webp", "Etli Kereviz.webp", "Etli Kuru Fasulye.webp", "Etli Lahana Sarması.webp", "Etli Nohut.webp", "Etli Patlıcan Dolması.webp", "Etli Pazı Sarması.webp", "Etli Taze Fasulye.webp", "Etli Yaprak Sarma.webp", "Etsiz Çiğ Köfte.webp", "Ev Mantısı Kayseri usulü.webp", "Ev Usulü Kuzu Tandır.webp", "Ev Usulü Pizza.webp", "Ev Usulü İskender.webp", "Ev Yapımı Granola Bar.webp", "Ev Yapımı Meyveli Gazoz.webp", "Ev Yapımı Mini Hamburger.webp", "Ev Yapımı Peynirli Kraker.webp", "Ezogelin Çorbası.webp", "Fellah Köftesi.webp", "Firik Pilavı.webp", "Flat White Ev Usulü.webp", "Frappe.webp", "Fındıklı Kurabiye.webp", "Fırın Sütlaç.webp", "Fırında Cheesecake.webp", "Fırında Patates ve Ev Yapımı Ketçap.webp", "Fırında Somon.webp", "Fırında Tavuk Baget.webp", "Fırında Tavuk Nugget.webp", "Fırında Tavuk Şiş.webp", "Gavurdağı Salatası.webp", "Girit Ezmesi.webp", "Gül Reçeli.webp", "Güllaç.webp", "Hamsi Tava.webp", "Hamsili Pilav.webp", "Hanımgöbeği.webp", "Hasanpaşa Köfte.webp", "Hatay Usulü Zeytin Salatası.webp", "Havuç Çorbası.webp", "Haydari.webp", "Hazır Mantı.webp", "Hindistan Cevizli Soğuk Kahve.webp", "Hurma Tatlısı.webp", "Hünkâr Beğendi.webp", "Islak Kek.webp", "Islım Kebabı.webp", "Ispanak Yemeği.webp", "Ispanak Çorbası.webp", "Ispanaklı Tepsi Böreği.webp", "Ispanaklı Yumurta.webp", "Kabak Kalye.webp", "Kabak Mücver.webp", "Kabak Tatlısı.webp", "Kabak Çiçeği Dolması.webp", "Kadınbudu Köfte.webp", "Kalburabastı.webp", "Kapuska.webp", "Kara Lahana Kavurması.webp", "Karadeniz Lahana Çorbası.webp", "Karides Güveç.webp", "Karnabahar Kızartması.webp", "Karnıyarık.webp", "Kavurmalı Yumurta.webp", "Kaygana.webp", "Kayseri Yağlaması.webp", "Kayısı Reçeli.webp", "Kazandibi.webp", "Kaşarlı Pide.webp", "Kaşarlı Tost Rulo.webp", "Kaşarlı Tost.webp", "Kemalpaşa Tatlısı.webp", "Keşkek.webp", "Keşkül.webp", "Konya Tiridi.webp", "Krem Karamel.webp", "Kremalı Mantarlı Makarna.webp", "Kremalı Tavuk Çorbası.webp", "Krep.webp", "Kuru Fasulye Pilaki.webp", "Kuzu Haşlama.webp", "Kuzu Kapama.webp", "Kuzu İncik.webp", "Kuşbaşılı Pide.webp", "Kuşburnu Çayı.webp", "Köpüklü Ayran.webp", "Kısır.webp", "Kıymalı Ispanak.webp", "Kıymalı Pide.webp", "Lahmacun.webp", "Laz Böreği.webp", "Lebeniye Çorbası.webp", "Limonlu Kek.webp", "Lokma Tatlısı.webp", "Lor Salatası.webp", "Mantar Çorbası.webp", "Mantarlı Pilav.webp", "Mantarlı Tavuk Sote.webp", "Masala Çay.webp", "Mercimek Köftesi.webp", "Mercimek Çorbası.webp", "Mercimekli Bulgur Pilavı.webp", "Mevsim Salatası.webp", "Meyveli Soda Kokteyli.webp", "Meyveli Tart.webp", "Mezgit Tava.webp", "Mini Pizza.webp", "Mini Sandviç Çeşitleri.webp", "Mozaik Pasta.webp", "Muhallebi.webp", "Muhammara.webp", "Mıhlama.webp", "Naneli Ayran.webp", "Nohutlu Pilav.webp", "Orman Kebabı.webp", "Pankek.webp", "Patates Musakka.webp", "Patates Oturtma.webp", "Patates Salatası.webp", "Patates Çorbası.webp", "Patlıcan Kebabı.webp", "Patlıcan Musakka.webp", "Patlıcan Oturtma.webp", "Perde Pilavı.webp", "Peynirli Poğaça.webp", "Peynirli Simit Topları.webp", "Peynirli Tepsi Böreği.webp", "Pirinç Pilavı.webp", "Piyaz.webp", "Portakallı Kek.webp", "Profiterol.webp", "Pırasalı Börek.webp", "Rus Salatası.webp", "Sac Kavurma.webp", "Sahanda Yumurta.webp", "Sebze Çorbası.webp", "Sebzeli Güveç.webp", "Sigara Böreği.webp", "Su Böreği.webp", "Sucuklu Yumurta.webp", "Supangle.webp", "Sütlaç.webp", "Sütlü Nuriye.webp", "Sütlü Türk Kahvesi.webp", "Sütlü İrmik Tatlısı.webp", "Sıcak Çikolata.webp", "Tahinli Kurabiye.webp", "Tahinli Çörek.webp", "Tarhana Çorbası.webp", "Tas Kebabı.webp", "Tavuklu Pilav.webp", "Taze Fasulye Diblesi.webp", "Taze Fasulye Turşusu Karadeniz Usulü.webp", "Tel Kadayıf.webp", "Tepsi Kebabı.webp", "Terbiyeli Sulu Köfte.webp", "Tokat Kebabı Ev Usulü Fırında.webp", "Ton Balıklı Makarna.webp", "Toyga Çorbası.webp", "Trileçe.webp", "Tulumba Tatlısı.webp", "Tutmaç Çorbası.webp", "Türlü.webp", "Un Helvası.webp", "Un Kurabiyesi.webp", "Vişne Reçeli.webp", "Yeşil Mercimek Çorbası.webp", "Yeşil Çay.webp", "Yoğurtlu Semizotu Salatası.webp", "Yumurtalı Ekmek.webp", "Yuvalama Çorbası.webp", "Yüksük Çorbası.webp", "Zerde.webp", "Zeytinyağlı Bamya.webp", "Zeytinyağlı Barbunya Pilaki.webp", "Zeytinyağlı Bezelye.webp", "Zeytinyağlı Biber Dolması.webp", "Zeytinyağlı Domates Dolması.webp", "Zeytinyağlı Enginar.webp", "Zeytinyağlı Havuç.webp", "Zeytinyağlı Kabak.webp", "Zeytinyağlı Kereviz.webp", "Zeytinyağlı Lahana Sarması.webp", "Zeytinyağlı Patlıcan Dolması.webp", "Zeytinyağlı Pırasa.webp", "Zeytinyağlı Semizotu.webp", "Zeytinyağlı Taze Bakla.webp", "Zeytinyağlı Taze Fasulye.webp", "Zeytinyağlı Yaprak Sarma.webp", "aile.webp", "aile_deniz_etkinligi.webp", "aile_doga_etkinligi.webp", "aile_etkinligi.webp", "aile_gun_batimi.webp", "aile_piknigi.webp", "aile_sofrasi.webp", "aile_su_kenari.webp", "aile_yuruyusu.webp", "ailesiyle_yemek_hazirlama.webp", "ali-nazik.webp", "anne_baba_bebek.webp", "anne_cocuk.webp", "anne_cocuk_doga_etkinligi.webp", "anne_cocuk_etkinligi.webp", "anne_cocuklar.webp", "asure.webp", "bebek_uykuda.webp", "bolum_giysem.webp", "bolum_giysemw.webp", "bolum_icsem.webp", "bolum_icsemw.webp", "bolum_kesfet.webp", "bolum_m_bebek.webp", "bolum_m_ders.webp", "bolum_pisir.webp", "bolum_pisirw.webp", "bolum_plan.webp", "bolum_yapsam.webp", "bolum_yapsamw.webp", "brownie.webp", "cikolatali-sufle.webp", "cocuk_boyama_etkinligi.webp", "cocuk_egitici_etkinlik.webp", "cocuklarla_yemek_yapma.webp", "demlik-cay.webp", "dibek-kahvesi.webp", "domatesli-bulgur-pilavi.webp", "doner_kebap.webp", "dugun-corbasi.webp", "et_sote.webp", "etli-bezelye.webp", "etli-biber-dolmasi.webp", "etli-kuru-fasulye.webp", "etli-lahana-sarmasi.webp", "etli-nohut.webp", "etli_patates_yemegi.webp", "etli_pilav.webp", "etli_sebzeli_yemek.webp", "etli_sebzeli_yemek_2.webp", "ev-baklavasi.webp", "evde-cappuccino.webp", "evde-latte.webp", "ezogelin-corbasi.webp", "firin-sutlac.webp", "firinda-tavuk-ve-patates.webp", "fistikli-baklava.webp", "gun_batimi.webp", "hamsi-tava.webp", "imam_bayildi.webp", "islak-kek.webp", "ispanakli-gozleme.webp", "kahvalti.webp", "kahvalti_kuru_meyve.webp", "kahvalti_sofrasi.webp", "kahvalti_sofrasi_2.webp", "kajulu_pilav.webp", "karisik_salata.webp", "karniyarik.webp", "kazandibi.webp", "kiymali-borek.webp", "kiymali-gozleme.webp", "kunefe.webp", "kuru_fasulye_pilav.webp", "lahmacun.webp", "menemen.webp", "mercimek-corbasi.webp", "mevsim-salatasi.webp", "muhallebi.webp", "orman_yuruyusu.webp", "peynirli-gozleme.webp", "peynirli-pogaca.webp", "pirinc-pilavi.webp", "pisi.webp", "puf-boregi.webp", "revani.webp", "sebzeli_et_yemegi.webp", "sebzeli_kasarli_pilav.webp", "sehriyeli-tavuk-suyu-corba.webp", "su-boregi.webp", "tarhana-corbasi.webp", "telefon_gorusmesi.webp", "turk-kahvesi.webp", "turk_sofrasi.webp", "yayla-corbasi.webp", "zengin_kahvalti.webp", "Çikolatalı Muffin.webp", "Çilek Reçeli.webp", "Çilekli Limonata.webp", "Çiğ Börek.webp", "Çoban Salata.webp", "Çılbır.webp", "İmam Bayıldı.webp", "İnegöl Köfte.webp", "İrmik Helvası.webp", "İzmir Köfte.webp", "İç Pilav.webp", "İçli Köfte Haşlama.webp", "Şakşuka.webp", "Şehriye Çorbası.webp", "Şehriyeli Tavuk Suyu Çorba.webp", "Şekerpare.webp"]};
 
 /* ---- src/00_core.js ---- */
 /* ================================================================
@@ -1972,24 +1988,25 @@ const rv=c=>`--r:${c};--r1:${rgba(c,.12)};--r2:${rgba(c,.06)};--rk:${koyu(c)};--
 const kv=c=>`--k:${c};--k1:${rgba(c,.13)};--k2:${rgba(c,.07)}`;
 
 /* ---------- fotoğraf deposu ---------- */
-const FOTO_DEPO='https://cdn.jsdelivr.net/gh/mehmetalimelek60/bugunum-foto@main/';
-const FOTO={liste:null,yuklendi:false};/* depodaki dosyalar: ad(uzantısız) -> dosya adı */
+const fotoSik=t=>norm(t).replace(/[^a-z0-9]/g,'');
+const FOTO_DEPO='https://cdn.jsdelivr.net/gh/mehmetalimelek60/bugunum-foto@';
+/* FOTO_SABIT derleme sırasında depodan yazılır: {sha, dosyalar:[...]}; internet listesi yalnız yeni eklenenleri tamamlar */
+const FOTO={liste:{},yuklendi:false};/* anahtar -> tam adres */
+function fotoEkle(m,n,ref){const b=n.replace(/\.[^.]+$/,'');const u=FOTO_DEPO+ref+'/'+n.split('/').map(encodeURIComponent).join('/');const webp=/\.webp$/i.test(n);[b,slug(b),'~'+fotoSik(b)].forEach(k=>{if(!m[k]||(webp&&!/\.webp$/i.test(m[k])))m[k]=u})}
+(function(){const F=typeof FOTO_SABIT!=='undefined'?FOTO_SABIT:null;if(F)F.dosyalar.forEach(n=>fotoEkle(FOTO.liste,n,F.sha))})();
+async function fotoListe(){if(FOTO.yuklendi)return;FOTO.yuklendi=true;if(!navigator.onLine)return;
+ try{const r=await fetch('https://data.jsdelivr.com/v1/packages/gh/mehmetalimelek60/bugunum-foto@main?structure=flat');if(!r.ok)return;const j=await r.json();let yeni=0;(j.files||[]).forEach(f=>{const n=f.name.replace(/^\//,'');if(!/\.(webp|jpe?g|png)$/i.test(n))return;const b=n.replace(/\.[^.]+$/,'');if(FOTO.liste[b])return;fotoEkle(FOTO.liste,n,'main');yeni++});if(yeni)render()}catch(e){}}
 /* fotoğrafı İÇERİĞİNE göre eşlenmiş dosyalar (dosya adları içerikten farklı) */
 const FOTO_ESLE={
  tarif:{karniyarik:'karniyarik',mihlama:'etli_patates_yemegi',etsote:'etli_sebzeli_yemek',taskebabi:'sebzeli_et_yemegi',tavuksote:'etli_sebzeli_yemek_2',tavuklupilav:'etli_pilav',nohutlupilav:'kuru_fasulye_pilav'},
  ad:{aile:'aile_piknigi',aile2:'anne_cocuklar',aile3:'anne_baba_bebek',bebek:'bebek_uykuda',ders:'cocuk_egitici_etkinlik',boyama:'cocuk_boyama_etkinligi',piknik:'aile_piknigi',yuruyus:'aile_yuruyusu',orman:'orman_yuruyusu',deniz:'imam_bayildi',kis:'kahvalti_sofrasi',gunbatimi:'gun_batimi',gol:'aile_su_kenari',kahvalti:'zengin_kahvalti',kahvalti2:'kahvalti',sofra:'turk_sofrasi',meze:'et_sote',mutfakAile:'ailesiyle_yemek_hazirlama',anneKiz:'anne_cocuk',park:'anne_cocuk_etkinligi',kek:'aile_doga_etkinligi',kucukSef:'aile_sofrasi',is:'telefon_gorusmesi',doner:'doner_kebap'}};
-/* depo listesini bir kez al (çevrimdışıysa son bilinen listeyi kullan) */
-async function fotoListe(){if(FOTO.yuklendi)return;FOTO.yuklendi=true;let L=null;try{L=JSON.parse(localStorage.getItem('bugunum.foto')||'null')}catch(e){}
- if(L){FOTO.liste=L}
- try{const r=await fetch('https://data.jsdelivr.com/v1/packages/gh/mehmetalimelek60/bugunum-foto@main?structure=flat',{cache:'no-store'});if(r.ok){const j=await r.json();const m={};(j.files||[]).forEach(f=>{const n=f.name.replace(/^\//,'');if(/\.(webp|jpe?g|png)$/i.test(n)){const b=n.replace(/\.[^.]+$/,'');m[b]=n;m[slug(b)]=m[slug(b)]||n;m['~'+fotoSik(b)]=m['~'+fotoSik(b)]||n}});FOTO.liste=m;try{localStorage.setItem('bugunum.foto',JSON.stringify(m))}catch(e){}if(!L||Object.keys(m).length!==Object.keys(L).length)render()}}catch(e){}}
-const fotoVar=ad=>!!(FOTO.liste&&FOTO.liste[ad]);
-const fotoUrl=ad=>FOTO.liste&&FOTO.liste[ad]?FOTO_DEPO+FOTO.liste[ad]:null;
+const fotoVar=ad=>!!FOTO.liste[ad];
+const fotoUrl=ad=>FOTO.liste[ad]||null;
 /* bölüm fotoğrafı: bolum_<ad> */
 const fotoBolum=ad=>fotoUrl('bolum_'+ad);
 /* içerik fotoğrafı (aile, piknik…) */
 const fotoAd=k=>fotoUrl(FOTO_ESLE.ad[k]||k);
 /* tarif fotoğrafı: önce içerik eşlemesi, sonra ad-slug, sonra id */
-const fotoSik=t=>norm(t).replace(/[^a-z0-9]/g,'');
 const fotoTarif=r=>r?(fotoUrl(FOTO_ESLE.tarif[r.id])||fotoUrl(slug(r.ad))||fotoUrl('~'+fotoSik(r.ad))||fotoUrl(r.id)):null;
 
 /* ---------- sayfa iskeleti ---------- */
@@ -2081,7 +2098,7 @@ const ilkHarf=()=>{const n=(S.name||'').trim();return n?n.split(/\s+/).map(x=>x[
 
 /* ---------- çizim ---------- */
 let _sonRota='';
-function render(){const r=rotaAl();let B=ROTA[r.ad];if(!B||(BOLUM[r.ad]&&!bolumAcik(r.ad)&&r.ad!=='bugun')){B=ROTA.bugun}
+function render(){if(!document.querySelector('.perde,.sor')&&document.body.style.overflow)document.body.style.overflow='';const r=rotaAl();let B=ROTA[r.ad];if(!B||(BOLUM[r.ad]&&!bolumAcik(r.ad)&&r.ad!=='bugun')){B=ROTA.bugun}
  const renk=B.renk||'#14213D';const kok=document.documentElement;const st=rv(renk);if(kok.getAttribute('style')!==st)kok.setAttribute('style',st);
  const m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',renk);
  document.body.classList.toggle('koyu',!!S.dark);
@@ -2119,14 +2136,16 @@ eylem('arti',()=>{const L=HIZLI.slice(0,5);perde(`<div class="pb"><h2>Hızlı ek
 eylem('hizli',d=>{const h=HIZLI.find(x=>x.ad===d.h);if(h)setTimeout(()=>h.f(),240)});
 
 /* ---------- çekmece (hamburger menü) ---------- */
-eylem('cekmece',()=>{const r=rotaAl().ad;const akKat=(BOLUM[r]||{}).kat;
- const satir=b=>`<a href="#/${b.ad}" class="${b.ad===r?'on':''}" data-kpt><span class="ic">${ik(b.ikon)}</span>${esc(b.kisa||b.baslik)}</a>`;
- const ana=b=>`<a href="#/${b.ad}" class="ana${b.ad===r?' on':''}" style="${kv(b.renk)}" data-kpt><span class="ic">${ik(b.ikon)}</span>${esc(b.kisa||b.baslik)}</a>`;
- const anaL=BOLUM_SIRA.map(a=>BOLUM[a]).filter(b=>b.kat==='ana'&&bolumAcik(b.ad));
- const grup=KATEGORI.map(([k,y,i,c])=>{const L=BOLUM_SIRA.map(a=>BOLUM[a]).filter(b=>b.kat===k&&bolumAcik(b.ad));if(!L.length)return '';const ac=k===(akKat||'mutfak');return `<div class="grup${ac?' ac':''}" style="${kv(c)}"><button class="gbas" data-g aria-expanded="${ac}"><span class="ic">${ik(i)}</span>${esc(y)}${ik('chevR','ok')}</button><div class="gic">${L.map(satir).join('')}</div></div>`}).join('');
- const p=document.createElement('div');p.innerHTML=`<div class="cperde"></div><aside class="cek" aria-label="Menü"><div class="cb"><span class="av">${esc(ilkHarf())}</span><div><b>${esc(S.name?'Merhaba, '+S.name.split(' ')[0]:'Hoş geldin')}</b><small>Bugün daha iyi bir gün</small></div></div>
-  <div class="cic">${ana({ad:'bugun',baslik:'Bugün',ikon:'home',renk:'#14213D'})}${anaL.map(ana).join('')}${grup}</div>
-  <div class="alt2"><a href="#/araclar" data-kpt>${ik('grid')}Bölümleri düzenle</a><a href="#/profil" data-kpt>${ik('settings')}Profil ve ayarlar</a></div></aside>`;
+eylem('cekmece',()=>{const r=rotaAl().ad;const akB=BOLUM[r];const akKat=akB?akB.kat:null;
+ const tile=(ad,y,i,c)=>`<a href="#/${ad}" class="ct${ad===r||(ad==='plan'&&r==='hatir')?' on':''}" style="${kv(c)}" data-kpt><span class="ic">${ik(i)}</span><b>${esc(y)}</b></a>`;
+ const tiles=`<div class="cts">${tile('bugun','Bugün','home','#F2B544')}${tile('liste','Alışveriş listesi','cart','#22B5C9')}${tile('plan','Planım','calendar','#6F8FE8')}${tile('ailem','Ailem','users','#A98BEA')}</div>`;
+ const satir=b=>`<a href="#/${b.ad}" class="${b.ad===r?'on':''}" style="${kv(b.renk)}" data-kpt><span class="ic">${ik(b.ikon)}</span><span class="ad">${esc(b.kisa||b.baslik)}</span>${b.ad===r?'<i class="nok"></i>':''}</a>`;
+ const ust=new Set(['liste','plan','ailem']);
+ const grup=KATEGORI.map(([k,y,i,c])=>{const ON=['mutfak','icsem','giysem','yapsam','plan','hatir','butce','ailem','cocuk','saglik','belge','arac','pet','hesapla','pratik','eglence','vakit'];const L=BOLUM_SIRA.map(a=>BOLUM[a]).filter(b=>b.kat===k&&bolumAcik(b.ad)&&!ust.has(b.ad)).sort((x,y)=>(ON.indexOf(x.ad)+99)%999-(ON.indexOf(y.ad)+99)%999);if(!L.length)return '';const ac=k===(akKat&&!ust.has(r)?akKat:'mutfak');return `<div class="grup${ac?' ac':''}" style="${kv(c)}"><button class="gbas" data-g aria-expanded="${ac}"><span class="ic">${ik(i)}</span><span class="ad">${esc(y)}</span><span class="say">${L.length}</span>${ik('chevD','ok')}</button><div class="gic">${L.map(satir).join('')}</div></div>`}).join('');
+ const p=document.createElement('div');p.innerHTML=`<div class="cperde"></div><aside class="cek" aria-label="Menü"><div class="cb"><div class="cbm">${LOGO_SVG('#F2B544','#F2B544','#FFFFFF')}<span>BUGÜN<b>ÜM</b></span><button class="ckap" data-kpt aria-label="Menüyü kapat">${ik('close')}</button></div>
+  <a class="cbu" href="#/profil" data-kpt><span class="av">${esc(ilkHarf())}</span><span class="ad"><b>${esc(S.name?'Merhaba, '+S.name.split(' ')[0]:'Hoş geldin')}</b><small>Profil ve ayarlar</small></span>${ik('chevR')}</a></div>
+  <div class="cic">${tiles}<div class="ckb">Bölümler</div>${grup}</div>
+  <div class="alt2"><a href="#/araclar" data-kpt>${ik('grid')}Bölümleri düzenle</a><button data-kpt data-a="koyuMod">${ik('moon')}${S.dark?'Gündüz modu':'Gece modu'}</button></div></aside>`;
  document.body.appendChild(p);const pr=p.firstElementChild,c=p.lastElementChild;requestAnimationFrame(()=>{pr.classList.add('on');c.classList.add('on')});
  const kapat=()=>{pr.classList.remove('on');c.classList.remove('on');setTimeout(()=>p.remove(),300)};
  pr.onclick=kapat;c.addEventListener('click',e=>{const g=e.target.closest('[data-g]');if(g){const gr=g.parentNode,ac=!gr.classList.contains('ac');c.querySelectorAll('.grup').forEach(x=>{x.classList.remove('ac');x.querySelector('[data-g]').setAttribute('aria-expanded','false')});if(ac){gr.classList.add('ac');g.setAttribute('aria-expanded','true')}return}if(e.target.closest('[data-kpt]'))setTimeout(kapat,60)});
